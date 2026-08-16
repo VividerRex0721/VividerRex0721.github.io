@@ -886,6 +886,42 @@ body.has-bg-image .grain { opacity: 0.15; }
 .toast-error { background: linear-gradient(120deg, rgba(180, 60, 60, 0.96), rgba(200, 70, 70, 0.96)); }
 .toast.out { opacity: 0; transform: translateX(20px); transition: 0.3s; }
 
+/* ---------- 二维码弹窗（社交按钮点开显示） ---------- */
+.qr-overlay {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(34, 48, 73, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s var(--ease);
+  padding: 20px;
+}
+.qr-overlay.open { opacity: 1; pointer-events: auto; }
+.qr-card {
+  position: relative;
+  padding: 30px 34px 24px;
+  text-align: center;
+  width: min(320px, 92vw);
+}
+.qr-close {
+  position: absolute; top: 12px; right: 14px;
+  width: 32px; height: 32px; border-radius: 50%;
+  border: 1px solid var(--stroke); background: rgba(255, 255, 255, 0.9);
+  color: var(--muted); font-size: 14px; line-height: 1;
+  transition: 0.2s;
+}
+.qr-close:hover { color: var(--accent); border-color: rgba(77, 124, 246, 0.5); }
+.qr-title { font-family: var(--font-serif); font-size: 17px; font-weight: 700; margin: 0 0 16px; }
+.qr-img-wrap {
+  width: 220px; height: 220px; margin: 0 auto 14px;
+  display: grid; place-items: center;
+  background: #fff; border: 1px solid var(--stroke); border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.qr-img { width: 100%; height: 100%; object-fit: contain; }
+.qr-tip { margin: 0; color: var(--muted-2); font-size: 13px; }
+
 /* ---------- 动画关键帧 ---------- */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 @keyframes toastIn { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }

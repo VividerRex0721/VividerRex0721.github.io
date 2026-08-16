@@ -67,9 +67,15 @@
   function buildFooter() {
     const foot = document.querySelector('.footer');
     if (!foot) return;
-    const socials = (S.socials || []).filter((s) => s.url).map((s) =>
-      '<a class="footer-social" href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener" title="' +
-      escapeHtml(s.name) + '">' + svg(s.icon || 'link') + '<span>' + escapeHtml(s.name) + '</span></a>').join('');
+    const socials = (S.socials || []).filter((s) => s.url || s.qr).map((s) => {
+      if (s.qr) {
+        return '<button class="footer-social" type="button" data-qr="' + escapeHtml(s.qr) + '" data-qr-name="' +
+          escapeHtml(s.name) + '" title="' + escapeHtml(s.name) + '">' + svg(s.icon || 'link') + '<span>' +
+          escapeHtml(s.name) + '</span></button>';
+      }
+      return '<a class="footer-social" href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener" title="' +
+        escapeHtml(s.name) + '">' + svg(s.icon || 'link') + '<span>' + escapeHtml(s.name) + '</span></a>';
+    }).join('');
     foot.innerHTML =
       '<div class="container footer-grid">' +
       '<div class="footer-brand">' +
@@ -80,7 +86,44 @@
       '<p class="footer-copy">' + escapeHtml(S.footer || '') +
       (S.icp ? ' · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">' + escapeHtml(S.icp) + '</a>' : '') +
       '</p></div>';
+    foot.querySelectorAll('[data-qr]').forEach((b) =>
+      b.addEventListener('click', () => showQr(b.dataset.qr, b.dataset.qrName)));
   }
+
+  /* ---------- 二维码弹窗（社交按钮点开显示） ---------- */
+  function hideQr() {
+    const overlay = document.querySelector('.qr-overlay');
+    if (overlay) overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function showQr(src, name) {
+    let overlay = document.querySelector('.qr-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.className = 'qr-overlay';
+      overlay.innerHTML =
+        '<div class="qr-card glass">' +
+        '<button class="qr-close" type="button" aria-label="关闭">✕</button>' +
+        '<p class="qr-title"></p>' +
+        '<div class="qr-img-wrap"><img class="qr-img" alt="二维码"></div>' +
+        '<p class="qr-tip">打开 App 扫码关注</p>' +
+        '</div>';
+      document.body.appendChild(overlay);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.closest('.qr-close')) hideQr();
+      });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideQr(); });
+    }
+    overlay.querySelector('.qr-title').textContent = name || '';
+    const img = overlay.querySelector('.qr-img');
+    const tip = overlay.querySelector('.qr-tip');
+    img.onload = () => { img.style.display = ''; tip.textContent = '打开 App 扫码关注'; };
+    img.onerror = () => { img.style.display = 'none'; tip.textContent = '二维码图片还没放进来：请放到 assets/qrcodes/ 文件夹'; };
+    img.src = src;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  window.showQr = showQr;
 
   /* ---------- 首页文案填充 ---------- */
   function fillHero() {

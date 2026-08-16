@@ -39,13 +39,14 @@ window.SITE = {
   interests: ['写作', '代码', '咖啡', '摄影', '旅行', '阅读', '开源', '音乐'],
 
   /* ---------- 社交链接（icon 支持: github / mail / rss / x / link / juejin / zhihu / bilibili / gitee / douyin / qq） ----------
-   * url 留空 '' 的不会显示；填上你的主页地址后自动出现在「关于我」和页脚
+   * url：普通跳转链接；qr：点击弹窗显示二维码（图片放 assets/qrcodes/ 文件夹）
+   * url / qr 都留空则不显示
    */
   socials: [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/VividerRex0721' },
     { name: '哔哩哔哩', icon: 'bilibili', url: 'https://space.bilibili.com/520552483' },
-    { name: '抖音', icon: 'douyin', url: 'https://www.douyin.com/search/Tisxm828' }, // 抖音号；有主页分享链接(v.douyin.com/xxx)可以替换
-    { name: 'QQ', icon: 'qq', url: 'https://wpa.qq.com/msgrd?v=3&uin=2020426849&site=qq&menu=yes' },
+    { name: '抖音', icon: 'douyin', qr: 'assets/qrcodes/douyin.png' }, // 点开弹二维码；图片放 assets/qrcodes/
+    { name: 'QQ', icon: 'qq', qr: 'assets/qrcodes/qq.png' },          // 点开弹二维码；图片放 assets/qrcodes/
     { name: 'X', icon: 'x', url: 'https://x.com/JingyuWang76858' },
     { name: '掘金', icon: 'juejin', url: '' },        // 技术文章：https://juejin.cn/user/你的ID
     { name: 'Gitee', icon: 'gitee', url: '' },        // 码云：https://gitee.com/你的ID
