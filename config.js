@@ -44,7 +44,7 @@ window.SITE = {
   socials: [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/VividerRex0721' },
     { name: '掘金', icon: 'juejin', url: '' },        // 技术文章：https://juejin.cn/user/你的ID
-    { name: '知乎', icon: 'zhihu', url: '' },         // 问答/想法：https://www.zhihu.com/people/你的ID
+    { name: '知乎', icon: 'zhihu', url: 'https://www.zhihu.com/people/AJLoveChina' },
     { name: '哔哩哔哩', icon: 'bilibili', url: '' },  // 视频：https://space.bilibili.com/你的UID
     { name: 'X', icon: 'x', url: 'https://x.com/JingyuWang76858' },
     { name: 'Gitee', icon: 'gitee', url: '' },        // 码云：https://gitee.com/你的ID
