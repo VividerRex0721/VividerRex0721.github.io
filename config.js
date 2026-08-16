@@ -45,8 +45,8 @@ window.SITE = {
   socials: [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/VividerRex0721' },
     { name: '哔哩哔哩', icon: 'bilibili', url: 'https://space.bilibili.com/520552483' },
-    { name: '抖音', icon: 'douyin', qr: 'assets/qrcodes/douyin.png' }, // 点开弹二维码；图片放 assets/qrcodes/
-    { name: 'QQ', icon: 'qq', qr: 'assets/qrcodes/qq.png' },          // 点开弹二维码；图片放 assets/qrcodes/
+    { name: '抖音', icon: 'douyin', qr: 'assets/qrcodes/douyin.jpg' }, // 点开弹二维码；图片放 assets/qrcodes/
+    { name: 'QQ', icon: 'qq', qr: 'assets/qrcodes/qq.jpg' },          // 点开弹二维码；图片放 assets/qrcodes/
     { name: 'X', icon: 'x', url: 'https://x.com/JingyuWang76858' },
     { name: '掘金', icon: 'juejin', url: '' },        // 技术文章：https://juejin.cn/user/你的ID
     { name: 'Gitee', icon: 'gitee', url: '' },        // 码云：https://gitee.com/你的ID
