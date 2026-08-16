@@ -284,6 +284,35 @@
   }
   window.toast = toast;
 
+  /* ---------- 代码复制按钮（事件委托） ---------- */
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { /* ignore */ }
+    ta.remove();
+    return ok;
+  }
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.code-copy');
+    if (!btn) return;
+    const box = btn.closest('.code-box');
+    const code = box && box.querySelector('pre code');
+    if (!code) return;
+    const text = code.textContent;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => toast('代码已复制 📋', 'success'))
+        .catch(() => toast(fallbackCopy(text) ? '代码已复制 📋' : '复制失败，请手动选择复制', fallbackCopy(text) ? 'success' : 'error'));
+    } else {
+      toast(fallbackCopy(text) ? '代码已复制 📋' : '复制失败，请手动选择复制', fallbackCopy(text) ? 'success' : 'error');
+    }
+  });
+
   /* ---------- 工具 ---------- */
   const escapeHtml = (s) => String(s == null ? '' : s)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

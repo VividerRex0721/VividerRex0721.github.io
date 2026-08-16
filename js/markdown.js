@@ -46,6 +46,41 @@
     return base || 'sec';
   };
 
+  /* ---------- 代码语法高亮（参考博客园 hljs cnblogs 主题配色） ---------- */
+  const HLJS = {
+    comment: '#008000',  // 注释：绿
+    keyword: '#00f',     // 关键字/类型：蓝
+    string: '#a31515',   // 字符串：红
+    meta: '#2b91af',     // 预处理：青
+  };
+
+  function highlightCode(code, lang) {
+    const isC = lang === 'cpp' || lang === 'c' || lang === 'c++' || lang === 'cc' || lang === 'cxx';
+    const esc = escapeHtml(code);
+    if (!isC) return esc;
+    const kw = 'alignas|alignof|and|and_eq|asm|auto|bitand|bitor|bool|break|case|catch|char|class|compl|concept|const|consteval|constexpr|const_cast|continue|co_await|co_return|co_yield|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|false|float|for|friend|goto|if|inline|int|long|mutable|namespace|new|noexcept|not|not_eq|nullptr|operator|or|or_eq|private|protected|public|register|reinterpret_cast|requires|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|true|try|typedef|typeid|typename|union|unsigned|using|virtual|void|volatile|wchar_t|while|xor|xor_eq|scanf|printf|cin|cout|cerr|endl|freopen|fclose|fread|fwrite|string|vector|map|set|pair|stack|queue|deque|priority_queue|unordered_map|unordered_set|bitset|size_t';
+    const re = new RegExp('(\\/\\/[^\\n]*|\\/\\*[\\s\\S]*?\\*\\/|&quot;.*?&quot;|&#39;.*?&#39;|#\\s*\\w+|\\b(?:' + kw + ')\\b)', 'g');
+    return esc.replace(re, (m) => {
+      if (m[0] === '/' && (m[1] === '/' || m[1] === '*')) return '<span class="hljs-comment">' + m + '</span>';
+      if (m[0] === '&') return '<span class="hljs-string">' + m + '</span>';
+      if (m[0] === '#') return '<span class="hljs-meta">' + m + '</span>';
+      return '<span class="hljs-keyword">' + m + '</span>';
+    });
+  }
+
+  /* 代码块：macOS 风格窗口（标题栏 + 三色圆点 + 复制按钮） */
+  const COPY_SVG = '<svg class="icon icon-xs" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>';
+
+  function codeBoxHtml(lang, code) {
+    const escLang = escapeHtml(lang || 'code');
+    return '<div class="code-box">' +
+      '<div class="code-tools"><span class="code-lang">' + escLang + '</span>' +
+      '<button class="code-copy" type="button" title="复制代码" aria-label="复制代码">' + COPY_SVG + '</button></div>' +
+      '<pre><code' + (lang ? ' class="language-' + escapeHtml(lang) + '"' : '') + '>' +
+      highlightCode(code, lang) + '</code></pre></div>';
+  }
+  window.highlightCode = highlightCode;
+
   /* ---------- 块级解析 ---------- */
   function parseBlocks(md) {
     const lines = md.replace(/\r\n?/g, '\n').split('\n');
@@ -126,8 +161,7 @@
         i++;
         while (i < lines.length && !closeRe.test(lines[i])) { buf.push(lines[i]); i++; }
         i++; // 跳过闭合围栏
-        push('<pre><code' + (lang ? ' class="language-' + lang + '"' : '') + '>' +
-          escapeHtml(buf.join('\n')) + '</code></pre>');
+        push(codeBoxHtml(lang, buf.join('\n')));
         continue;
       }
 

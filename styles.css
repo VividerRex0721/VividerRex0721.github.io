@@ -26,9 +26,9 @@
   --radius: 18px;
   --radius-sm: 12px;
   --nav-h: 66px;
-  --font: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, -apple-system, sans-serif;
+  --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, 'Noto Sans SC', sans-serif;
   --font-serif: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
-  --mono: 'JetBrains Mono', 'Cascadia Code', Consolas, 'Courier New', monospace;
+  --mono: 'Source Code Pro', 'Ubuntu Mono', Consolas, Menlo, Monaco, 'Courier New', monospace;
   --ease: cubic-bezier(0.25, 0.6, 0.3, 1);
 }
 
@@ -40,6 +40,7 @@ body {
   font-family: var(--font);
   font-size: 16px;
   line-height: 1.8;
+  letter-spacing: 0.015em;
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -527,8 +528,8 @@ body.has-bg-image .grain { opacity: 0.15; }
 }
 .article-cover img { width: 100%; height: 100%; object-fit: cover; }
 
-/* 文章正文 */
-.prose { font-size: 16px; color: #3c4658; line-height: 2; }
+/* 文章正文（排版参照博客园旧站：16px / 行高 1.8 / 字距 0.015em） */
+.prose { font-size: 16px; color: #3c4658; line-height: 1.8; letter-spacing: 0.015em; font-feature-settings: "tnum"; font-variant-numeric: tabular-nums; }
 .prose > :first-child { margin-top: 0; }
 .prose > :last-child { margin-bottom: 0; }
 .prose h2, .prose h3, .prose h4 {
@@ -558,31 +559,89 @@ body.has-bg-image .grain { opacity: 0.15; }
 .prose .task-item input { accent-color: var(--accent); transform: translateY(2px); }
 .prose .task-item.done span { color: var(--muted-2); text-decoration: line-through; }
 .prose blockquote {
-  margin: 1.7em 0; padding: 18px 24px;
-  border-left: 3px solid var(--accent);
-  background: var(--accent-soft);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  color: #4a5a78;
+  margin: 1.7em 0;
+  padding: 15px 18px;
+  border-left: 3px solid rgba(84, 104, 255, 0.8);
+  border-right: none; border-top: none; border-bottom: none;
+  background-color: #f7f7f7;
+  background-image: linear-gradient(180deg, #fff, #f5f5fa);
+  color: #484c7a;
+  box-shadow: 0 4px 11px 0 rgba(37, 44, 97, 0.09), 0 1px 3px 0 rgba(93, 100, 148, 0.06);
+  font-size: 14px;
+  border-radius: 4px;
 }
 .prose blockquote p { margin: 0; }
 .prose code.inline-code {
   font-family: var(--mono); font-size: 0.88em;
-  background: var(--accent-soft);
-  color: var(--accent-deep);
-  padding: 2px 8px; border-radius: 6px;
-  border: 1px solid rgba(77, 124, 246, 0.22);
+  color: #d83b64;
+  background: #f9f2f4;
+  padding: 2px 5px; border-radius: 3px;
+  border: none;
+  font-weight: 600;
 }
-.prose pre {
-  margin: 1.7em 0; padding: 22px 24px;
-  background: #1e2a44;
-  border-radius: var(--radius-sm);
+/* 代码块：macOS 窗口风格 + hljs 浅色主题（参考博客园旧站） */
+.code-box {
+  position: relative;
+  margin: 1.7em 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 11px -2px rgba(37, 44, 97, 0.15), 0 1px 3px 0 rgba(93, 100, 148, 0.06);
+}
+.code-box .code-tools {
+  position: relative;
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 14px;
+  background: #2b2b2b;
+  color: rgba(238, 255, 255, 0.78);
+  font-size: 12.5px;
+  /* macOS 红黄绿三圆点 */
+  padding-left: 64px;
+}
+.code-box .code-tools::before {
+  content: '';
+  position: absolute; left: 14px; top: 50%;
+  width: 12px; height: 12px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: #fc625d;
+  box-shadow: 20px 0 #fdbc40, 40px 0 #35cd4b;
+}
+.code-box .code-lang {
+  font-family: var(--mono);
+  letter-spacing: 1px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.code-box .code-copy {
+  margin-left: auto;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 24px;
+  border: none; border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(238, 255, 255, 0.7);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.code-box .code-copy:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+.code-box pre {
+  margin: 0;
+  padding: 16px 18px;
+  background: #f5f5f5;
+  border-radius: 0;
   overflow-x: auto;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
 }
-.prose pre code {
-  font-family: var(--mono); font-size: 13.5px; line-height: 1.7;
-  color: #dbe7fb;
+.code-box pre code {
+  font-family: var(--mono);
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: #23263b;
 }
+/* 语法高亮（hljs cnblogs 主题配色） */
+.hljs-comment { color: #008000; }
+.hljs-keyword { color: #00f; }
+.hljs-string { color: #a31515; }
+.hljs-meta { color: #2b91af; }
 .prose hr { border: none; height: 1px; margin: 2.8em auto; width: 60%; background: linear-gradient(90deg, transparent, var(--stroke), transparent); }
 .prose img {
   border-radius: var(--radius-sm); margin: 1.7em auto;
