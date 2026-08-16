@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <title>个人博客</title>
 </head>
 <body>
@@ -43,6 +43,11 @@
           <button class="hero-quote-refresh" id="quoteRefresh" type="button" title="换一句" aria-label="换一句">
             <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
           </button>
+        </div>
+        <!-- 实时时间（js/home.js 每秒更新） -->
+        <div class="hero-clock" id="heroClock" role="status">
+          <span class="hero-clock-ico" aria-hidden="true">🕒</span>
+          <span class="hero-clock-text" id="heroClockText">正在获取时间…</span>
         </div>
         <p class="hero-desc" data-hero-tagline></p>
         <div class="hero-actions">
@@ -111,11 +116,11 @@
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></svg>
   </button>
 
-  <script defer src="config.js?v=6"></script>
-  <script defer src="articles/index.bundle.js?v=6"></script>
-  <script defer src="js/markdown.js?v=6"></script>
-  <script defer src="js/main.js?v=6"></script>
-  <script defer src="js/quotes.js?v=6"></script>
-  <script defer src="js/home.js?v=6"></script>
+  <script defer src="config.js?v=7"></script>
+  <script defer src="articles/index.bundle.js?v=7"></script>
+  <script defer src="js/markdown.js?v=7"></script>
+  <script defer src="js/main.js?v=7"></script>
+  <script defer src="js/quotes.js?v=7"></script>
+  <script defer src="js/home.js?v=7"></script>
 </body>
 </html>

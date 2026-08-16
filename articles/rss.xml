@@ -4,24 +4,24 @@
   <link>https://VividerRex0721.github.io/</link>
   <description>一个收集灵感、记录成长、分享代码与生活的个人网站。</description>
     <item>
-      <title>Markdown 写作速查手册</title>
-      <link>https://VividerRex0721.github.io/article.html?slug=markdown-guide</link>
-      <guid>https://VividerRex0721.github.io/article.html?slug=markdown-guide</guid>
-      <pubDate>Sun, 10 Mar 2024 00:00:00 GMT</pubDate>
-      <description>从标题到表格，一篇学会这个网站支持的全部排版语法。</description>
+      <title>欢迎来到我的小站 👋</title>
+      <link>https://VividerRex0721.github.io/article.html?slug=welcome</link>
+      <guid>https://VividerRex0721.github.io/article.html?slug=welcome</guid>
+      <pubDate>Sun, 16 Aug 2026 00:00:00 GMT</pubDate>
+      <description>这里是我记录想法与生活的地方，也是我亲手搭建的第一个网站。</description>
     </item>
     <item>
       <title>为什么我选择「纯静态」博客</title>
       <link>https://VividerRex0721.github.io/article.html?slug=static-blog</link>
       <guid>https://VividerRex0721.github.io/article.html?slug=static-blog</guid>
-      <pubDate>Fri, 02 Feb 2024 00:00:00 GMT</pubDate>
+      <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
       <description>没有数据库、没有框架、没有构建工具，一个文件夹就是一个网站。</description>
     </item>
     <item>
-      <title>欢迎来到我的小站 👋</title>
-      <link>https://VividerRex0721.github.io/article.html?slug=welcome</link>
-      <guid>https://VividerRex0721.github.io/article.html?slug=welcome</guid>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 GMT</pubDate>
-      <description>这里是我记录想法与生活的地方，也是我亲手搭建的第一个网站。</description>
+      <title>Markdown 写作速查手册</title>
+      <link>https://VividerRex0721.github.io/article.html?slug=markdown-guide</link>
+      <guid>https://VividerRex0721.github.io/article.html?slug=markdown-guide</guid>
+      <pubDate>Fri, 14 Aug 2026 00:00:00 GMT</pubDate>
+      <description>从标题到表格，一篇学会这个网站支持的全部排版语法。</description>
     </item>
 </channel></rss>

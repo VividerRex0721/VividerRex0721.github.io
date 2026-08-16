@@ -74,6 +74,23 @@
       (ic[name] || ic.link) + '</svg>';
   }
 
+  /* ---------- 实时时钟（主页，每秒更新） ---------- */
+  function initClock() {
+    const el = document.getElementById('heroClockText');
+    if (!el) return;
+    const WEEK = ['日', '一', '二', '三', '四', '五', '六'];
+    const pad = (n) => String(n).padStart(2, '0');
+    const tick = () => {
+      const d = new Date();
+      el.innerHTML =
+        d.getFullYear() + ' 年 ' + (d.getMonth() + 1) + ' 月 ' + d.getDate() + ' 日' +
+        ' · 星期' + WEEK[d.getDay()] +
+        ' · <span class="hero-clock-time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ':' + pad(d.getSeconds()) + '</span>';
+    };
+    tick();
+    setInterval(tick, 1000);
+  }
+
   function buildPosts() {
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
@@ -95,5 +112,6 @@
     buildHeroChips();
     buildAbout();
     buildPosts();
+    initClock();
   });
 })();

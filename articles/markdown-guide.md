@@ -1,6 +1,6 @@
 ---
 title: Markdown 写作速查手册
-date: 2024-03-10
+date: 2026-08-14
 tags: [教程, Markdown]
 excerpt: 从标题到表格，一篇学会这个网站支持的全部排版语法。
 icon: 📝
