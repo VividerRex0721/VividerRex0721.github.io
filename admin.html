@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="写作后台">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>写作后台 · 个人博客</title>
+</head>
+<body>
+  <div class="bg-orbs" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="navbar"></header>
+
+  <!-- 密码门：未解锁时遮住整个后台 -->
+  <div class="admin-gate" id="adminGate">
+    <div class="admin-gate-card glass">
+      <div class="admin-gate-icon">🔒</div>
+      <h2>写作后台</h2>
+      <p class="admin-gate-tip">请输入访问密码</p>
+      <input type="password" id="gatePassword" placeholder="密码" autocomplete="off">
+      <button class="btn btn-primary" id="gateBtn" type="button">进入后台</button>
+      <p class="admin-gate-err" id="gateErr"></p>
+      <p class="admin-gate-hint">密码在 config.js 的 adminPassword 中修改</p>
+    </div>
+  </div>
+
+  <main class="admin-wrap" id="adminApp" style="display:none;">
+    <div class="container">
+      <div class="admin-head">
+        <div>
+          <h1 class="admin-title">写作后台 ✍️</h1>
+          <p class="admin-hint" id="adminHint"></p>
+        </div>
+        <button class="btn btn-primary" id="newBtn" type="button">＋ 新建文章</button>
+      </div>
+
+      <div class="file-hint" id="fileHint"></div>
+
+      <div class="admin-layout">
+        <!-- 左侧：文章列表 -->
+        <aside class="admin-side">
+          <div class="admin-list-card glass">
+            <h3>📚 文章管理 <span style="color:var(--muted-2);font-weight:400;" id="listCount"></span></h3>
+            <ul class="admin-list" id="articleList"></ul>
+          </div>
+          <div class="glass" style="padding:18px 20px;font-size:13px;color:var(--muted);line-height:1.8;">
+            <strong style="color:var(--text);">💡 保存方式</strong><br>
+            保存后文章会写入 <code style="font-family:var(--mono);">articles/*.md</code> 文件，
+            并自动重建索引。也可以直接把 Markdown 文件丢进 articles 文件夹（需要本地服务在运行时自动刷新）。
+          </div>
+        </aside>
+
+        <!-- 右侧：编辑器 -->
+        <form class="admin-editor glass" id="editorForm">
+          <div class="form-row">
+            <label for="fTitle">标题 *</label>
+            <input type="text" id="fTitle" placeholder="给文章起个标题">
+          </div>
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="fSlug">链接别名（留空自动生成）</label>
+              <input type="text" id="fSlug" placeholder="如 my-first-post">
+            </div>
+            <div class="form-row">
+              <label for="fDate">发布日期</label>
+              <input type="date" id="fDate">
+            </div>
+            <div class="form-row">
+              <label for="fTags">标签（逗号分隔）</label>
+              <input type="text" id="fTags" placeholder="技术, 生活">
+            </div>
+          </div>
+          <div class="form-row">
+            <label for="fExcerpt">摘要（留空自动从正文截取）</label>
+            <input type="text" id="fExcerpt" placeholder="一句话概括这篇文章">
+          </div>
+          <div class="check-row">
+            <label><input type="checkbox" id="fFeatured"> ⭐ 精选（显示在首页）</label>
+            <label><input type="checkbox" id="fDraft"> 📦 草稿（不对外显示）</label>
+          </div>
+          <div class="form-row">
+            <label for="fContent">正文（Markdown）*</label>
+            <textarea id="fContent" placeholder="# 开始写作…&#10;&#10;支持标题、**加粗**、`代码`、列表、表格、引用等"></textarea>
+          </div>
+          <div class="admin-actions">
+            <button class="btn btn-primary" id="saveBtn" type="submit">💾 保存文章</button>
+            <span style="color:var(--muted-2);font-size:13px;" id="saveState"></span>
+          </div>
+          <div class="editor-preview">
+            <p style="margin:0 0 8px;font-size:12px;letter-spacing:2px;color:var(--muted-2);font-weight:600;">LIVE PREVIEW</p>
+            <div id="previewBox"><p class="preview-empty">⬅ 在左侧写 Markdown，这里实时预览</p></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"></footer>
+
+  <script defer src="config.js"></script>
+  <script defer src="articles/index.bundle.js"></script>
+  <script defer src="js/markdown.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/admin.js"></script>
+</body>
+</html>

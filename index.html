@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="个人博客">
+  <meta name="keywords" content="博客,个人网站">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <title>个人博客</title>
+</head>
+<body>
+  <!-- 背景：暖光 + 网格 + 纸纹 -->
+  <div class="bg-orbs" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- 导航栏（main.js 渲染） -->
+  <header class="navbar"></header>
+
+  <main>
+    <!-- ======== Hero ======== -->
+    <section class="hero">
+      <div class="container">
+        <a class="hero-badge" href="articles.html">
+          <span class="badge-dot"></span>
+          <span data-hero-badge>欢迎来到我的小站</span>
+          <span class="badge-arrow">→</span>
+        </a>
+        <p class="hero-kicker">✦ WELCOME TO MY WORLD</p>
+        <h1 class="hero-title">你好，我是 <span class="hero-name" data-hero-name>你</span></h1>
+        <p class="hero-roles" data-hero-roles></p>
+        <!-- 随机一言：古诗 / 二次元名句（js/quotes.js） -->
+        <div class="hero-quote" id="heroQuote">
+          <span class="hero-quote-mark" aria-hidden="true">❝</span>
+          <div class="hero-quote-body">
+            <p class="hero-quote-text" id="quoteText">正在抽取一句诗…</p>
+            <span class="hero-quote-from" id="quoteFrom"></span>
+          </div>
+          <button class="hero-quote-refresh" id="quoteRefresh" type="button" title="换一句" aria-label="换一句">
+            <svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
+          </button>
+        </div>
+        <p class="hero-desc" data-hero-tagline></p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="articles.html">阅读文章
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h16m0 0-6-6m6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#about">认识我</a>
+        </div>
+        <div class="hero-chips" id="heroChips"></div>
+      </div>
+    </section>
+
+    <!-- ======== 关于我 ======== -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">✦ ABOUT</span>
+          <h2 class="section-title">关于<span class="grad-text">我</span></h2>
+          <p class="section-sub">一个简单的介绍，让你快速认识我</p>
+        </div>
+        <div class="about-grid">
+          <!-- 左侧名片 -->
+          <div class="about-card glass reveal">
+            <div class="avatar-wrap"><img id="aboutAvatar" src="assets/avatar.svg" alt="头像"></div>
+            <h3 class="about-name" id="aboutName"></h3>
+            <p class="about-role" id="aboutRole"></p>
+            <div class="about-socials" id="aboutSocials"></div>
+          </div>
+          <!-- 右侧详情 -->
+          <div class="about-main">
+            <div class="about-text-card glass reveal"><div id="aboutText"></div></div>
+            <div class="stats-row" id="statsRow"></div>
+            <div class="skill-card glass reveal">
+              <h3 class="post-title" style="margin-bottom:18px;">技能雷达 📡</h3>
+              <div id="skillList"></div>
+            </div>
+            <div class="glass reveal" style="padding:30px 34px;">
+              <h3 class="post-title" style="margin-bottom:18px;">兴趣碎片 ✨</h3>
+              <div class="interest-chips" id="interestChips"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======== 精选文章 ======== -->
+    <section class="section" id="featured">
+      <div class="container">
+        <div class="section-head reveal">
+          <span class="section-kicker">✦ FEATURED</span>
+          <h2 class="section-title">精选<span class="grad-text">文章</span></h2>
+          <p class="section-sub">最近写下的想法与记录</p>
+        </div>
+        <div class="posts-grid" id="featuredGrid"></div>
+        <div style="text-align:center;margin-top:40px;" class="reveal">
+          <a class="btn btn-ghost" href="articles.html">查看全部文章</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚（main.js 渲染） -->
+  <footer class="footer"></footer>
+
+  <button class="to-top" aria-label="回到顶部">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m0 0-6 6m6-6 6 6"/></svg>
+  </button>
+
+  <script defer src="config.js"></script>
+  <script defer src="articles/index.bundle.js"></script>
+  <script defer src="js/markdown.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/quotes.js"></script>
+  <script defer src="js/home.js"></script>
+</body>
+</html>
