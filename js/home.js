@@ -27,16 +27,20 @@
 
     const socials = document.getElementById('aboutSocials');
     if (socials) {
-      socials.innerHTML = (S.socials || []).filter((s) => s.url || s.qr).map((s) => {
-        if (s.qr) {
-          return '<button class="social-pill" type="button" data-qr="' + esc(s.qr) + '" data-qr-name="' +
-            esc(s.name) + '" title="' + esc(s.name) + '">' + svgIcon(s.icon || 'link') + esc(s.name) + '</button>';
-        }
-        return '<a class="social-pill" href="' + esc(s.url) + '" target="_blank" rel="noopener" title="' +
-          esc(s.name) + '">' + svgIcon(s.icon || 'link') + esc(s.name) + '</a>';
-      }).join('');
-      socials.querySelectorAll('[data-qr]').forEach((b) =>
-        b.addEventListener('click', () => { if (window.showQr) window.showQr(b.dataset.qr, b.dataset.qrName); }));
+      const items = (S.socials || []).filter((s) => s.url || s.qr);
+      if (!items.length) { socials.style.display = 'none'; }
+      else {
+        socials.innerHTML = items.map((s) => {
+          if (s.qr) {
+            return '<button class="social-pill" type="button" data-qr="' + esc(s.qr) + '" data-qr-name="' +
+              esc(s.name) + '" title="' + esc(s.name) + '">' + svgIcon(s.icon || 'link') + esc(s.name) + '</button>';
+          }
+          return '<a class="social-pill" href="' + esc(s.url) + '" target="_blank" rel="noopener" title="' +
+            esc(s.name) + '">' + svgIcon(s.icon || 'link') + esc(s.name) + '</a>';
+        }).join('');
+        socials.querySelectorAll('[data-qr]').forEach((b) =>
+          b.addEventListener('click', () => { if (window.showQr) window.showQr(b.dataset.qr, b.dataset.qrName); }));
+      }
     }
 
     const stats = document.getElementById('statsRow');

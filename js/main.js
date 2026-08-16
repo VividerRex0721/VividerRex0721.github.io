@@ -83,7 +83,7 @@
       '<span class="footer-logo">' + escapeHtml(S.logo || '') + '</span>' +
       '<p>' + escapeHtml(S.tagline || '') + '</p>' +
       '</div>' +
-      '<div class="footer-socials">' + socials + '</div>' +
+      (socials ? '<div class="footer-socials">' + socials + '</div>' : '') +
       '<p class="footer-copy">' + escapeHtml(S.footer || '') +
       (S.icp ? ' · <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">' + escapeHtml(S.icp) + '</a>' : '') +
       '</p></div>';

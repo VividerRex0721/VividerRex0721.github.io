@@ -38,20 +38,12 @@ window.SITE = {
   ],
   interests: ['写作', '代码', '咖啡', '摄影', '旅行', '阅读', '开源', '音乐'],
 
-  /* ---------- 社交链接（icon 支持: github / mail / rss / x / link / juejin / zhihu / bilibili / gitee / douyin / qq / luogu） ----------
-   * url：普通跳转链接；qr：点击弹窗显示二维码（图片放 assets/qrcodes/ 文件夹）
-   * url / qr 都留空则不显示
+  /* ---------- 社交链接（已屏蔽，网站不展示任何联系方式） ----------
+   * 如需恢复：在下方数组里填入项目即可，例如
+   *   { name: 'GitHub', icon: 'github', url: 'https://...' }
+   *   { name: 'QQ', icon: 'qq', qr: '图片路径' }   // qr = 弹窗二维码
    */
-  socials: [
-    { name: 'GitHub', icon: 'github', url: 'https://github.com/VividerRex0721' },
-    { name: '哔哩哔哩', icon: 'bilibili', url: 'https://space.bilibili.com/520552483' },
-    { name: '洛谷', icon: 'luogu', url: 'https://www.luogu.com.cn/user/784310' },
-    { name: '抖音', icon: 'douyin', qr: 'assets/qrcodes/douyin.jpg' }, // 点开弹二维码；图片放 assets/qrcodes/
-    { name: 'QQ', icon: 'qq', qr: 'assets/qrcodes/qq.jpg' },          // 点开弹二维码；图片放 assets/qrcodes/
-    { name: 'X', icon: 'x', url: 'https://x.com/JingyuWang76858' },
-    { name: '掘金', icon: 'juejin', url: '' },        // 技术文章：https://juejin.cn/user/你的ID
-    { name: 'Gitee', icon: 'gitee', url: '' },        // 码云：https://gitee.com/你的ID
-  ],
+  socials: [],
 
   /* ---------- 部署 ----------
    * baseUrl：部署到 GitHub Pages 等线上地址后填这里（影响 RSS 里的文章链接）
