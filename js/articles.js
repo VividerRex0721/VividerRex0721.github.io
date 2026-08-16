@@ -58,10 +58,14 @@
     const input = document.getElementById('searchInput');
     if (input) {
       let timer = null;
-      input.addEventListener('input', () => {
+      let composing = false; // 中文输入法组词中不触发搜索
+      const doSearch = () => {
         clearTimeout(timer);
         timer = setTimeout(() => { state.keyword = input.value; renderList(); }, 180);
-      });
+      };
+      input.addEventListener('compositionstart', () => { composing = true; });
+      input.addEventListener('compositionend', () => { composing = false; doSearch(); });
+      input.addEventListener('input', () => { if (!composing) doSearch(); });
     }
     loadArticles().then((data) => {
       state.all = (data.articles || []).filter((a) => !a.draft);

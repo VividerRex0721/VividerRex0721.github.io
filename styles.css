@@ -958,6 +958,9 @@ body.has-bg-image .grain { opacity: 0.15; }
   /* 移动端性能：隐藏高密度纸纹层，减少滚动重绘 */
   .grain { display: none; }
   .bg-grid { background-size: 40px 40px; }
+  /* 时钟在窄屏上允许换行，避免溢出 */
+  .hero-clock { max-width: 94%; font-size: 13px; padding: 7px 14px; }
+  .hero-clock-text { white-space: normal; }
   .nav-links {
     position: fixed; top: var(--nav-h); left: 0; right: 0;
     flex-direction: column; align-items: stretch; gap: 4px;

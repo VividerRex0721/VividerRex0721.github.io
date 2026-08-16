@@ -141,6 +141,15 @@
     if (meta) meta.setAttribute('content', S.description || '');
     const kw = document.querySelector('meta[name="keywords"]');
     if (kw) kw.setAttribute('content', (S.keywords || []).join(','));
+    // OG 分享标签（微信/QQ 转发时展示）
+    const og = (sel, content) => {
+      const el = document.querySelector(sel);
+      if (el && content) el.setAttribute('content', content);
+    };
+    og('meta[property="og:title"]', (S.name ? S.name + ' · ' : '') + (S.tagline || '个人博客'));
+    og('meta[property="og:description"]', S.description || '');
+    og('meta[property="og:url"]', (S.baseUrl || '') + '/');
+    og('meta[property="og:image"]', S.background || '');
   }
 
   /* ---------- Hero 角色（静态展示） ---------- */
@@ -247,6 +256,12 @@
       if (!src) return;
       document.documentElement.style.setProperty('--bg-img', 'url("' + src + '")');
       document.body.classList.add('has-bg-image');
+      // 预加载背景图，加速首屏
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = src;
+      document.head.appendChild(link);
     };
     if (S.background) { apply(S.background); return; }
     if (location.protocol === 'file:') return; // 直开模式无法探测文件夹
@@ -275,8 +290,22 @@
     .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   window.esc = escapeHtml;
 
+  /* 取字符串第一个字符（按 Unicode 码点，避免 emoji 被截成半个乱码） */
+  const firstChar = (s, fb) => {
+    const t = String(s == null ? '' : s);
+    return [...t][0] || fb;
+  };
+  window.firstChar = firstChar;
+
   const fmtDate = (d) => {
-    const dt = new Date(d);
+    let dt;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(String(d))) {
+      // 'YYYY-MM-DD' 按本地时间解析，避免 UTC 解析在负时区显示成前一天
+      const [y, m, day] = String(d).split('-').map(Number);
+      dt = new Date(y, m - 1, day);
+    } else {
+      dt = new Date(d);
+    }
     if (isNaN(dt)) return String(d);
     return dt.getFullYear() + ' 年 ' + (dt.getMonth() + 1) + ' 月 ' + dt.getDate() + ' 日';
   };
@@ -305,7 +334,7 @@
   };
   window.coverFor = coverFor;
 
-  const coverIcon = (a) => (a.icon && String(a.icon).trim() ? a.icon.trim() : (a.title || '✦').slice(0, 1));
+  const coverIcon = (a) => (a.icon && String(a.icon).trim() ? a.icon.trim() : (firstChar(a.title, '✦')));
   window.coverIcon = coverIcon;
 
   /* ---------- 文章数据加载 ----------

@@ -80,19 +80,20 @@
   }
 
   function avatarHtml(c) {
+    const first = (s, fb) => window.firstChar ? window.firstChar(s, fb) : (String(s || fb)[0] || fb);
     if (c.anonymous) {
       return '<span class="comment-avatar is-anon">匿</span>';
     }
     if (c.isAuthor) {
       return '<span class="comment-avatar is-author">' +
-        esc((String(c.name || '我')[0] || '我').slice(0, 1).toUpperCase()) + '</span>';
+        esc(first(c.name, '我').toUpperCase()) + '</span>';
     }
     const colors = ['#4d7cf6', '#7c5cf0', '#0ea5e9', '#6366f1', '#38bdf8', '#14b8a6'];
     let h = 0;
     for (const ch of String(c.name || '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
     const color = colors[h % colors.length];
     return '<span class="comment-avatar" style="background:' + color + '">' +
-      esc((String(c.name || '友')[0] || '友').slice(0, 1).toUpperCase()) + '</span>';
+      esc(first(c.name, '友').toUpperCase()) + '</span>';
   }
 
   function likedIds(slug) {
@@ -348,6 +349,15 @@
       document.title = a.title + ' · ' + ((window.SITE && window.SITE.name) || '个人博客');
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) metaDesc.setAttribute('content', a.excerpt || a.title);
+      // OG 分享标签（微信/QQ 转发文章时展示标题摘要）
+      const og = (sel, content) => {
+        const el = document.querySelector(sel);
+        if (el && content) el.setAttribute('content', content);
+      };
+      og('meta[property="og:title"]', a.title);
+      og('meta[property="og:description"]', a.excerpt || a.title);
+      og('meta[property="og:url"]', ((window.SITE && window.SITE.baseUrl) || '') + '/article.html?slug=' + encodeURIComponent(a.slug));
+      og('meta[property="og:image"]', a.cover || ((window.SITE && window.SITE.background) || ''));
       body.innerHTML =
         buildHead(a) +
         '<div class="prose">' + html + '</div>' +
