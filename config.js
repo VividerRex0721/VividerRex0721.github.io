@@ -60,9 +60,10 @@ window.SITE = {
   /* ---------- 背景图片 ----------
    * 把照片放进 assets/backgrounds/ 文件夹，再在这里填路径即可全站生效
    * 留空 '' 时：本地服务会自动使用该文件夹里的第一张图片；直开模式用默认渐变背景
+   * 提示：背景图建议压到 1680px 宽、300KB 左右，加载更快（可用工具压缩后放入）
    * 例：background: 'assets/backgrounds/my-photo.jpg'
    */
-  background: 'assets/backgrounds/【哲风壁纸】冰川-壁纸-河流.jpg',
+  background: 'assets/backgrounds/glacier.jpg',
 
   /* ---------- giscus 评论（线上部署用，GitHub Discussions 驱动，无需后端） ----------
    * 本地开发时仍用内置评论；线上访问自动切换为 giscus。
@@ -77,7 +78,7 @@ window.SITE = {
     repo: 'VividerRex0721/VividerRex0721.github.io',
     repoId: 'R_kgDOJ91eQw',
     category: 'General',
-    categoryId: '',            // ← 在 giscus.app 配置页生成后填入
+    categoryId: 'DIC_kwDOJ91eQ84DDeZA',
     mapping: 'pathname',
     reactionsEnabled: '1',
     inputPosition: 'top',
